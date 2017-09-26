@@ -1,0 +1,108 @@
+\documentclass{bbawslides}
+
+\usepackage[TS1, T1]{fontenc}
+\usepackage{ifthen}
+
+\usepackage[a4paper]{hyperref}
+\rotateheaderstrue	%%-- otherwise seminar does strange things
+\usepackage{url}
+
+\usepackage[ngerman]{babel}
+\usepackage[babel]{csquotes}
+\usepackage[autoplay]{animate}
+\usepackage{graphicx}
+\usepackage{numprint}
+\npthousandsep{~}\npthousandthpartsep{}\npdecimalsign{,}
+
+\DeclareTextSymbol{\textlongs}{TS1}{115} 
+\DeclareTextSymbolDefault{\textlongs}{TS1}
+
+
+\begin{document}
+\providecommand{\Title}{}
+
+
+\begin{bbawtitle}[Praktische Probleme des OCR-Trainings mit synthetischen Daten]
+  \vspace*{2em}%
+  Kay-Michael Würzner\\[-.25em]%
+  \textcolor{urlColor}{\texttt{{\small wuerzner@bbaw.de}}}
+  \\[0.5em]
+  {\small Gemeinsame Arbeit mit Ehud Alexander Avner und Matthias Boenig}
+  \\[1.5em]
+  {\footnotesize{%
+    OCR-Entwicklerworkshop an der Berlin-Brandenburgischen Akademie der Wissenschaften\\%
+    28. September 2017\\%
+  }}
+\end{bbawtitle}
+\slideStyleFrame
+
+\renewcommand{\footerText}{\tiny 28. September 2017, OCR-Entwicklerworkshop, BBAW}
+
+%----------------------------------------------------------------------------------------------
+% Outline
+%----------------------------------------------------------------------------------------------
+\begin{bbawslide}{Übersicht}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \begin{itemize}
+    \item Einleitung
+    \begin{itemize}\small
+      \item Was ist synthetisches Training?
+      \item Wozu braucht man das?
+    \end{itemize}
+    \item Technische Aspekte
+    \begin{itemize}\small
+      \item Font-Rendering
+      \item Unicode
+      \item Schriftarten
+      \item Volltexte
+    \end{itemize}
+    \item Experimente
+    \begin{itemize}\small
+      \item Hebräisch mit Nikkud
+      \item Schreibmaschinenschrift
+    \end{itemize}
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawpart}{\Large\bf Einleitung}
+\end{bbawpart}
+
+\begin{bbawslide}{Was ist synthetisches Training?}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawpart}{\Large\bf Danke für Ihre Aufmerksamkeit!\\}
+OCR-D-Team: Elisa Hermann, Maria Federbusch, Clemens Neudecker, Ajinkya Prabhune, \textbf{Matthias Boenig}\\
+Mehr zu OCR: \url{https://www.zotero.org/groups/ocr-d}
+\end{bbawpart}
+
+\end{document}
+
+%\begin{bbawpart}{\Large\bf Warum braucht man OCR?}
+%\end{bbawpart}
+
+%\begin{bbawslide}{Warum braucht man OCR?}
+%  \vspace*{7mm}%
+%  \centerslidestrue%
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{bbawslide}
+
+%
+% modelines
+%
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% coding: utf-8
+%%% tab-width: 2
+%%% indent-tabs-mode: nil
+%%% End:
+
+% vim: set ts=2 sw=2 expandtab :
