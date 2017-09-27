@@ -83,7 +83,7 @@
     \epsfig{file=figures/align.eps,width=\textwidth}
   \end{center}
   \begin{itemize}
-    \item Qualität der resultierenden Modelle abhängig von Passung und Umfang des Trainingsmaterials
+    \item Qualität der resultierenden Modelle abhängig von \textbf{Passung} und \textbf{Umfang} des Trainingsmaterials
     \item für die meisten Anwendungsszenarien: \textbf{keine} geeigneten Modelle und damit \textbf{schmutzige} OCR
   \end{itemize}
 \end{bbawslide}
@@ -168,7 +168,7 @@
   \centerslidestrue%
   \begin{description}
     \item[Ziel:] Ausloten der Potenziale des synthetischen Trainings in Kontexten ohne ausreichend vorhandenes reales Trainingsmaterial und mit erschwerten Bedingungen
-    \item[Methode:]
+    \item[Methode:] $~$
       \begin{itemize}
         \item Fontauswahl
         \item Generierung von Zeilenimages (unter verschiedenen Bedingungen) mit Hilfe von \texttt{OCRopus} und \texttt{Ketos}
@@ -185,8 +185,109 @@
   \vspace*{7mm}%
   \centerslidestrue%
   \begin{itemize}
-    \item 
+    \item Hebräisch
+    \begin{itemize}\small
+      \item alphabetische Sprache mit 22 Buchstaben
+      \item keine \textbf{Vokale}
+    \end{itemize}
+    \item Nikkud (\enquote{Punkte, Punktierung})
+    \begin{itemize}\small
+      \item verschiedene Diakritika (über, unter und \textbf{innerhalb} von Buchstaben)
+      \item Explifizierung von Vokalen und Konsonantenalternation
+    \end{itemize}
+    \item Aufwand der manuellen Transkription \textbf{horrend}
+    \item Texte insbesondere aus dem Bereich Lyrik und Drama aber auch Lexika
+    \item Vorarbeiten mit Tesseract 3 (\url{https://www.cs.bgu.ac.il/~elhadad/hocr/})
   \end{itemize}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 1: Hebräisch mit Nikkud}
+  \vspace*{3mm}%
+  \centerslidestrue%
+  \textbf{Beispiele:}
+  \begin{center}
+    \begin{tabular}{cc}
+      \begin{minipage}{0.35\textwidth}\epsfig{file=figures/ex_hebrew1.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.35\textwidth}\epsfig{file=figures/ex_hebrew2.eps,width=\textwidth}\end{minipage}
+    \end{tabular}\\[2ex]
+    \begin{tabular}{cc}
+      \begin{minipage}{0.5\textwidth}\epsfig{file=figures/ex_hebrew5.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.5\textwidth}\epsfig{file=figures/ex_hebrew4.eps,width=\textwidth}\end{minipage}
+    \end{tabular}
+  \end{center}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 1: Hebräisch mit Nikkud}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \textbf{Vorgehen:}
+  \begin{itemize}
+    \item manuelle Erfassung von zwei Seiten für Testzwecke (Text plus Layout, aligniert)
+    \item Fontauswahl
+    \begin{itemize}
+      \item wenige vollständig ausgestattete Schriften
+      \item \textbf{Frank-Rühl:} weltweit verbreitetste Schriftart für Hebräisch, 1909 von Rafael Frank in Leipzig entwickelt
+      \item ähnelt vielen Veröffentlichungen des 19. Jh.
+      \item darüberhinaus \textbf{KeterYG} und \textbf{DavidCLM}
+    \end{itemize}
+    \begin{tabular}{ccc}
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_frank.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_keter.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_david.eps,width=\textwidth}\end{minipage}
+      \\
+      \small Frank-Rühl
+      &
+      \small KeterYG
+      &
+      \small DavidCLM
+    \end{tabular}
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 1: Hebräisch mit Nikkud}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \textbf{Vorgehen:}
+  \begin{itemize}
+    \item Texttauswahl
+    \begin{itemize}\small
+      \item unklarer Faktor
+      \item Saul Tschernichowskis hebräische Fassung der \emph{Ilias}
+    \end{itemize}
+    \item Kodierung der Buchstaben-Diakritika-Kombinationen als kombinierte Zeichen
+    \begin{itemize}\small
+      \item Kodierung als Abfolge aus Buchstaben und Diakritika \textbf{untrainierbar}
+      \item 586 \enquote{Zeichen}
+    \end{itemize}
+    \item Rendering mit \texttt{OCRopus} (verschiedene Grade der Degradation)
+    \item Training mit \texttt{OCRopus} (Standardparameterbelegung)
+    \begin{itemize}\small
+      \item nur synthetisches Trainingsmaterial
+      \item Zwei Modelle: Frank Rühl only und Frank-David-Keter
+    \end{itemize}
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 1: Hebräisch mit Nikkud}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \textbf{Ergebnisse:}
+  \begin{itemize}
+    \item Transkription und Alignierung einer Seite neues Testament sowie einer Seite Shakespeare
+    \item jeweils 180000 Trainingsschritte, Auswahl des besten Modells
+  \end{itemize}
+  \begin{tabular}{lrp{0.5\textwidth}}
+    \textbf{Modell} & \textbf{CER} & \textbf{Beschreibung}\\
+    \texttt{Frank} & 19\,\% & 115000 Trainingsschritte\\
+    \texttt{FrankDavidKeter} & 31\,\% & 180000 Trainingsschritte \\
+    \hline
+    \texttt{Frank} & 19\,\% & Trainingsschritte\\
+    \texttt{FrankDavidKeter} & 31\,\% & Trainingsschritte \\
+  \end{tabular}
 \end{bbawslide}
 
 \begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
@@ -222,7 +323,7 @@
 \end{bbawslide}
 
 \begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
-  \vspace*{7mm}%
+  \vspace*{4mm}%
   \centerslidestrue%
   \textbf{Vorgehen:}
   \begin{itemize}
@@ -233,6 +334,31 @@
       \item teilweise modellspezifisch
       \item mit entsprechenden Artefakten
     \end{itemize}
+    \begin{tabular}{cccc}
+      \begin{minipage}{0.2\textwidth}\epsfig{file=figures/ex_underwood.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.2\textwidth}\epsfig{file=figures/ex_rheinmetall.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.2\textwidth}\epsfig{file=figures/ex_byron.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.2\textwidth}\epsfig{file=figures/ex_olivetti.eps,width=\textwidth}\end{minipage}
+      \\
+      \small 1913 Underwood No. 5
+      &
+      \small Rheinmetall 1952
+      &
+      \small Byron Mark 1
+      &
+      \small Olivetti Lettera 32
+      \\
+      \begin{minipage}{0.15\textwidth}\epsfig{file=figures/tw_underwood.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.15\textwidth}\epsfig{file=figures/tw_rheinmetall.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.15\textwidth}\epsfig{file=figures/tw_byron.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.15\textwidth}\epsfig{file=figures/tw_olivetti.eps,width=\textwidth}\end{minipage}
+    \end{tabular}
   \end{itemize}
 \end{bbawslide}
 
@@ -262,26 +388,40 @@
   \centerslidestrue%
   \textbf{Ergebnisse:}
   \begin{itemize}
-    \item Vergleich mit Ground Truth und Baseline (Abbyy Finereader 14)
+    \item 215 Zeilen reales Trainingsmaterial, 95 Zeilen Testmaterial
+    \item jeweils 40000 Trainingsschritte, Auswahl des besten Modells
   \end{itemize}
-  \begin{tabular}{lr}
+  \begin{tabular}{lrp{0.5\textwidth}}
+    \textbf{Modell} & \textbf{CER} & \textbf{Beschreibung}\\
+    \texttt{Abbyy} & 5\,\% & Abbyy FineReader 14\\
+    \texttt{Real} & 17\,\% & 17000 Trainingsschritte \\
+    \texttt{Synthetic} & 17\,\% \\
+    \texttt{Mixed-simple} & 22\,\% & 17000 Trainingsschritte auf ca. 10000 Zeilen \\
+    \texttt{Mixed-komplex} & 15\,\% & 26000 Trainingsschritte auf ca. 9000 Zeilen \\
   \end{tabular}
 \end{bbawslide}
 
-\begin{bbawpart}{\Large\bf Diskussion}
+\begin{bbawpart}{\Large\bf Hypothesen und Lösungsmöglichkeiten}
 \end{bbawpart}
 
-\begin{bbawslide}{Diskussion}
+\begin{bbawslide}{Hypothesen und Lösungsmöglichkeiten}
   \vspace*{7mm}%
   \centerslidestrue%
-  \begin{itemize}
-    \item
-  \end{itemize}
+  \begin{description}
+    \item[\labelitemi] Distanz zwischen synthetischem Trainingsmaterial und realen Daten zu groß
+    \item[$\rightarrow$] mehr bzw. realistischere Degradation
+    \item[$\rightarrow$] passendere Schriftarten
+    \item[$\rightarrow$] realistischeres Rendering (Graustufen oder Farbrendering)
+    \item[\labelitemi] Modelle konvergieren zu schnell
+    \item[$\rightarrow$] mehr Trainingsdaten, mehr Schriftarten
+    \item[$\rightarrow$] alternative Parameterbelegung beim Training
+    \item[\labelitemi] Hebräisch: Alphabet zu groß
+    \item[$\rightarrow$] getrennte Erkennung von Buchstaben und Diakritika
+  \end{description}
 \end{bbawslide}
 
 \begin{bbawpart}{\Large\bf Danke für Ihre Aufmerksamkeit!\\}
-OCR-D-Team: Elisa Hermann, Maria Federbusch, Clemens Neudecker, Ajinkya Prabhune, \textbf{Matthias Boenig}\\
-Mehr zu OCR: \url{https://www.zotero.org/groups/ocr-d}
+OCR-D-Team: Elisa Hermann, Maria Federbusch, Clemens Neudecker, Ajinkya Prabhune, \textbf{Matthias Boenig}
 \end{bbawpart}
 
 \end{document}
