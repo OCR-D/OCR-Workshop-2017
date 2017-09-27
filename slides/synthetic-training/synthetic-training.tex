@@ -121,6 +121,7 @@
     \end{itemize}
     \item Utilisierung manuell transkribierter Texte für OCR-Training (z.B. DTA)
     \item Kombination mit realen Trainingsdaten möglich
+    \item bisher keine (systematische) Auseinandersetzung mit den einzelnen Parametern vor dem Hintergrund des OCR-Ergebnisses von gedrucktem Text
   \end{itemize}
 \end{bbawslide}
 
@@ -170,7 +171,10 @@
     \item[Methode:]
       \begin{itemize}
         \item Fontauswahl
-        \item Generierung von Zeilenimages (unter verschiedenen Bedingungen)
+        \item Generierung von Zeilenimages (unter verschiedenen Bedingungen) mit Hilfe von \texttt{OCRopus} und \texttt{Ketos}
+        \begin{description}
+          \item[$\rightarrow$] nur binärcodierte Bilder
+        \end{description}
         \item Training von \texttt{OCRopus}- bzw. \texttt{CLSTM}- Modellen
         \item Evaluierung
       \end{itemize}
@@ -199,23 +203,79 @@
 \end{bbawslide}
 
 \begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
-  \vspace*{7mm}%
+  \vspace*{3mm}%
   \centerslidestrue%
-  Beispiele:
+  \textbf{Beispiele:}
+  \begin{center}
+    \epsfig{file=figures/ex_typo1.eps,width=\textwidth}
+    \begin{tabular}{cc}
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_typo2.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_typo3.eps,width=\textwidth}\end{minipage}
+    \end{tabular}
+    \begin{tabular}{cc}
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_typo4.eps,width=\textwidth}\end{minipage}
+      &
+      \begin{minipage}{0.3\textwidth}\epsfig{file=figures/ex_typo5.eps,width=\textwidth}\end{minipage}
+    \end{tabular}
+  \end{center}
 \end{bbawslide}
 
 \begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
   \vspace*{7mm}%
   \centerslidestrue%
-  Vorgehen:
+  \textbf{Vorgehen:}
   \begin{itemize}
-    \item manuelle Erfassung von zehn Seiten für Testzwecke (Text plus Layout)
+    \item manuelle Erfassung von zehn Seiten für Testzwecke (Text plus Layout, aligniert)
     \item Fontauswahl
     \begin{itemize}
       \item riesige Menge an vorhandenen Schriften
       \item teilweise modellspezifisch
       \item mit entsprechenden Artefakten
     \end{itemize}
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \textbf{Vorgehen:}
+  \begin{itemize}
+    \item Texttauswahl
+    \begin{itemize}\small
+      \item unklarer Faktor
+      \item intuitive Auswahl: Briefe
+      \item Jean Paul: \enquote{Dritte Abteilung Briefe}. In: \emph{Jean Pauls Sämtliche Werke. Historisch-kritische Ausgabe}. Abt. 3, Bd. 1. Berlin, 1956.
+    \end{itemize}
+    \item Rendering mit \texttt{Ketos} (\verb_--_\texttt{legacy}-Degradation)
+    \item Training mit \texttt{CLSTM} (Standardparameterbelegung)
+    \begin{itemize}\small
+      \item nur reales Trainingsmaterial
+      \item nur synthetisches Trainingsmaterial
+      \item gemischt
+    \end{itemize}
+  \end{itemize}
+\end{bbawslide}
+
+\begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \textbf{Ergebnisse:}
+  \begin{itemize}
+    \item Vergleich mit Ground Truth und Baseline (Abbyy Finereader 14)
+  \end{itemize}
+  \begin{tabular}{lr}
+  \end{tabular}
+\end{bbawslide}
+
+\begin{bbawpart}{\Large\bf Diskussion}
+\end{bbawpart}
+
+\begin{bbawslide}{Diskussion}
+  \vspace*{7mm}%
+  \centerslidestrue%
+  \begin{itemize}
+    \item
   \end{itemize}
 \end{bbawslide}
 
