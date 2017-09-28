@@ -55,7 +55,6 @@
       \item Font-Rendering
       \item Schriftarten
       \item Unicode
-      \item Volltexte
     \end{itemize}
     \item Experimente
     \begin{itemize}\small
@@ -72,7 +71,7 @@
   \vspace*{7mm}%
   \centerslidestrue%
   \begin{itemize}
-    \item Text-Bild Alignierung als Grundlage jeden OCR-Trainings
+    \item Text-Bild-Alignierung als Grundlage jeden OCR-Trainings
     \begin{itemize}
       \item Zeilen- oder Glyphenebene
       \item hoher manueller Aufwand
@@ -119,7 +118,7 @@
        \item Zitat: \enquote{400000 textlines spanning about 4500 fonts}
        \item mglw. sogar einzige Möglichkeit des Trainings?
     \end{itemize}
-    \item Utilisierung manuell transkribierter Texte für OCR-Training (z.B. DTA)
+    \item Utilisierung manuell transkribierter Texte für OCR-Training (z.\,B. DTA)
     \item Kombination mit realen Trainingsdaten möglich
     \item bisher keine (systematische) Auseinandersetzung mit den einzelnen Parametern vor dem Hintergrund des OCR-Ergebnisses von gedrucktem Text
   \end{itemize}
@@ -132,7 +131,19 @@
   \vspace*{7mm}%
   \centerslidestrue%
   \begin{itemize}
-    \item
+    \item Funktionalität von Betriebssystemen und Graphikbibliotheken
+    \item unterschiedliche Techniken
+    \begin{description}\small
+      \item[Bi-Level-Rendering:] schwarze und \enquote{weiße} Pixel
+      \item[Gray-Scale-Rendering:] Modifikation der Helligkeit einzelner Pixel (\emph{Anitaliasing})
+      \item[Sub-Pixel-Rendering:] Ansteuern der roten, grünen und blauen Subpixel $\rightarrow$ Verdreifachung der Auflösung
+    \end{description}
+    \item viele verschiedene freie Implementierungen, z.\,B.
+    \begin{itemize}\small
+      \item \texttt{ImageMagick}
+      \item \texttt{Python Image Library} (verwendet in \texttt{OCRopus})
+      \item \texttt{Cairo} (verwendet in \texttt{Kraken})
+    \end{itemize}
   \end{itemize}
 \end{bbawslide}
 
@@ -140,7 +151,20 @@
   \vspace*{7mm}%
   \centerslidestrue%
   \begin{itemize}
-    \item
+    \item Implementierung einer Schrift
+    \item unterschiedliche Techniken
+    \begin{itemize}\small
+      \item \texttt{PostScript}
+      \item \texttt{TrueType}
+      \item \texttt{OpenType}
+    \end{itemize}
+    \item für Font Rendering im Wesentlichen \texttt{OpenType} zu empfehlen
+    \begin{itemize}\small
+      \item bessere \textbf{Unicode}-Unterstützung
+      \item bessere (automatische) Darstellung von \textbf{Ligaturen}
+      \item auch \texttt{*.ttf}-Schriften sind meist \texttt{OpenType}
+    \end{itemize}
+    \item Ease-of-Use-Tools für die Erstellung \textbf{eigener Schriftarten}
   \end{itemize}
 \end{bbawslide}
 
@@ -148,16 +172,22 @@
   \vspace*{7mm}%
   \centerslidestrue%
   \begin{itemize}
-    \item
+    \item Unicode-Unterstützung $\neq$ Unicode-Umsetzung
+    \item gerade bei Font-Implementierungen
+    \begin{itemize}\small
+      \item falsches Code-Point-Mapping (Windows)
+      \item unvollständige Zeichenumsetzung
+    \end{itemize}
+    \item auch Issues beim Font-Rendering
+    \begin{itemize}\small
+      \item Platzierung von Diakritika
+      \item automatischer Einsatz von Standardzeichen
+    \end{itemize}
   \end{itemize}
-\end{bbawslide}
-
-\begin{bbawslide}{Volltexte}
-  \vspace*{7mm}%
-  \centerslidestrue%
-  \begin{itemize}
-    \item
-  \end{itemize}
+  \begin{center}
+    \epsfig{file=figures/ex_pil.eps,width=0.7\textwidth}\\[2ex]
+    \epsfig{file=figures/ex_harting.eps,width=0.7\textwidth}
+  \end{center}
 \end{bbawslide}
 
 \begin{bbawpart}{\Large\bf Experimente}
@@ -175,7 +205,7 @@
         \begin{description}
           \item[$\rightarrow$] nur binärcodierte Bilder
         \end{description}
-        \item Training von \texttt{OCRopus}- bzw. \texttt{CLSTM}- Modellen
+        \item Training von \texttt{OCRopus}- bzw. \texttt{CLSTM}-Modellen
         \item Evaluierung
       \end{itemize}
   \end{description}
@@ -267,7 +297,7 @@
     \item Training mit \texttt{OCRopus} (Standardparameterbelegung)
     \begin{itemize}\small
       \item nur synthetisches Trainingsmaterial
-      \item Zwei Modelle: Frank Rühl only und Frank-David-Keter
+      \item zwei Modelle: Frank Rühl only und Frank-David-Keter
     \end{itemize}
   \end{itemize}
 \end{bbawslide}
@@ -277,17 +307,20 @@
   \centerslidestrue%
   \textbf{Ergebnisse:}
   \begin{itemize}
-    \item Transkription und Alignierung einer Seite neues Testament sowie einer Seite Shakespeare
+    \item Transkription und Alignierung einer Seite Neues Testament sowie zwei Seiten Shakespeare
     \item jeweils 180000 Trainingsschritte, Auswahl des besten Modells
   \end{itemize}
-  \begin{tabular}{lrp{0.5\textwidth}}
+  \begin{tabular}{lrr}
     \textbf{Modell} & \textbf{CER} & \textbf{Beschreibung}\\
     \texttt{Frank} & 19\,\% & 115000 Trainingsschritte\\
     \texttt{FrankDavidKeter} & 31\,\% & 180000 Trainingsschritte \\
     \hline
-    \texttt{Frank} & 19\,\% & Trainingsschritte\\
-    \texttt{FrankDavidKeter} & 31\,\% & Trainingsschritte \\
+    \texttt{Frank} & 24\,\% & 90000 Trainingsschritte\\
+    \texttt{FrankDavidKeter} & 23\,\% & 175000 Trainingsschritte \\
   \end{tabular}
+  \begin{itemize}
+    \item Anwendung auf synthetisches Testmaterial: CER $<$ 2\,\%
+  \end{itemize}
 \end{bbawslide}
 
 \begin{bbawslide}{Experiment 2: Schreibmaschinentyposkripte}
@@ -391,14 +424,17 @@
     \item 215 Zeilen reales Trainingsmaterial, 95 Zeilen Testmaterial
     \item jeweils 40000 Trainingsschritte, Auswahl des besten Modells
   \end{itemize}
-  \begin{tabular}{lrp{0.5\textwidth}}
+  \begin{tabular}{lrp{0.8\textwidth}}
     \textbf{Modell} & \textbf{CER} & \textbf{Beschreibung}\\
     \texttt{Abbyy} & 5\,\% & Abbyy FineReader 14\\
     \texttt{Real} & 17\,\% & 17000 Trainingsschritte \\
-    \texttt{Synthetic} & 17\,\% \\
+    \texttt{Synthetic} & 25\,\% & 21000 Trainingsschritte auf ca. 9000 Zeilen\\
     \texttt{Mixed-simple} & 22\,\% & 17000 Trainingsschritte auf ca. 10000 Zeilen \\
     \texttt{Mixed-komplex} & 15\,\% & 26000 Trainingsschritte auf ca. 9000 Zeilen \\
   \end{tabular}
+  \begin{itemize}
+    \item Anwendung auf synthetisches Testmaterial: CER $<$ 1\,\%
+  \end{itemize}
 \end{bbawslide}
 
 \begin{bbawpart}{\Large\bf Hypothesen und Lösungsmöglichkeiten}
@@ -409,19 +445,20 @@
   \centerslidestrue%
   \begin{description}
     \item[\labelitemi] Distanz zwischen synthetischem Trainingsmaterial und realen Daten zu groß
-    \item[$\rightarrow$] mehr bzw. realistischere Degradation
-    \item[$\rightarrow$] passendere Schriftarten
-    \item[$\rightarrow$] realistischeres Rendering (Graustufen oder Farbrendering)
+    \item[$~~\rightarrow$] mehr bzw. realistischere Degradation
+    \item[$~~\rightarrow$] passendere Schriftarten
+    \item[$~~\rightarrow$] realistischeres Rendering (Graustufen oder Farbrendering)
+    \item[$~~\rightarrow$] bessere Vorverarbeitung
     \item[\labelitemi] Modelle konvergieren zu schnell
-    \item[$\rightarrow$] mehr Trainingsdaten, mehr Schriftarten
-    \item[$\rightarrow$] alternative Parameterbelegung beim Training
+    \item[$~~\rightarrow$] mehr Trainingsdaten, mehr Schriftarten
+    \item[$~~\rightarrow$] alternative Parameterbelegung beim Training
     \item[\labelitemi] Hebräisch: Alphabet zu groß
-    \item[$\rightarrow$] getrennte Erkennung von Buchstaben und Diakritika
+    \item[$~~\rightarrow$] getrennte Erkennung von Buchstaben und Diakritika
   \end{description}
 \end{bbawslide}
 
 \begin{bbawpart}{\Large\bf Danke für Ihre Aufmerksamkeit!\\}
-OCR-D-Team: Elisa Hermann, Maria Federbusch, Clemens Neudecker, Ajinkya Prabhune, \textbf{Matthias Boenig}
+OCR-D-Team: Elisa Hermann, Maria Federbusch, Clemens Neudecker,\\Ajinkya Prabhune, \textbf{Matthias Boenig}
 \end{bbawpart}
 
 \end{document}
